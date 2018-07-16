@@ -1,0 +1,152 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+/* 表单样式 */
+.form{
+    width: 200px;
+    height: 200px;
+    margin: 150px auto 50px;
+    z-index: 10;
+    background: white;
+}
+.form input{
+    display: block;
+    width: 160px;
+    height: 40px;
+    margin: 20px auto;
+    padding: 0 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgba(253,164,41,0.5);
+    outline: none;
+    color: darkgray;
+}
+input::-webkit-input-placeholder{
+    color: white;
+}
+input::-moz-placeholder{
+    color: white;
+}
+.form input:nth-child(3){
+    visibility: hidden;
+}
+
+/* 按钮动画效果 */
+.wave {
+    position: absolute;
+    top: calc(80% - 60px);
+    left: calc(50% - 50px);
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    line-height: 100px;
+    font-size: 28px;
+    z-index: -10;
+}
+
+.wave .circle {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0;
+}
+.wave.solid .circle{
+    width: 100%;
+    height: 100%;
+    background: #fff;
+}
+
+.wave.solid .circle:first-child {
+    animation: circle-opacity 2s infinite;
+}
+
+.wave.solid.danger {
+    color: red;
+}
+
+.wave.solid.danger .circle{
+    background: red;
+}
+
+.wave.solid.warning {
+    color: orange;
+}
+
+.wave.solid.warning .circle{
+    background: orange;
+}
+
+@keyframes circle-opacity{
+    from {
+        opacity: 1;
+        transform: scale(0);
+    }
+    to {
+        opacity: 0;
+        transform: scale(1);
+    }
+}
+
+/* switch按钮效果 */
+.switch {
+    width: 38px;
+    height: 20px;
+    position: absolute;
+    left: calc(50% - 19px);
+    bottom: 50px;
+    border: 1px solid #dfdfdf;
+    background-color: #fdfdfd;
+    box-shadow: #dfdfdf 0 0 0 0 inset;
+    border-radius: 20px;
+    background-clip: content-box;
+    display: inline-block;
+    -webkit-appearance: none;
+    user-select: none;
+    outline: none;
+    z-index: -10;
+}
+.switch:before {
+    content: '';
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 20px;
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+.switch:checked {
+    border-color: rgba(253,164,41,0.5);
+    box-shadow: rgba(253,164,41,0.5) 0 0 0 16px inset;
+    background-color: rgba(253,164,41,0.5);
+}
+.switch:checked:before {
+    left: 20px;
+}
+.switch.switch-anim {
+    transition: border cubic-bezier(0, 0, 0, 1) 0.4s, box-shadow cubic-bezier(0, 0, 0, 1) 0.4s;
+}
+.switch.switch-anim:before {
+    transition: left 0.3s;
+}
+.switch.switch-anim:checked {
+    box-shadow: rgba(253,164,41,0.5) 0 0 0 16px inset;
+    background-color: rgba(253,164,41,0.5);
+    transition: border ease 0.4s, box-shadow ease 0.4s, background-color ease 1.2s;
+}
+.switch.switch-anim:checked:before {
+    transition: left 0.3s;
+}
+
+
+#copyright{
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    color: lemonchiffon;
+    z-index: -10;
+}
