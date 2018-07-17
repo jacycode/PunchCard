@@ -1,9 +1,20 @@
 /***************** 服务器操作 *****************/
 var express = require("express");
+var fs = require('fs');
+var https = require('https');
 var app = express();
+
+var privateKey  = fs.readFileSync('../ssl/domain-key-0717.key', 'utf8');
+var certificate = fs.readFileSync('../ssl/domain-crt-0717.crt', 'utf8');
+var credentials = {key: privateKey, cert: certificate};
 
 app.use(express.static('./'));
 
+app.use(function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    next();
+});
 
 //登录
 app.get("/login", function(req, res) {
@@ -125,9 +136,10 @@ app.get("/punch", function(req, res) {
     });
 });
 
-app.listen(8866, function() {
-    console.log("App started on port 8866");
-});
+// app.listen(8866, function() {
+//     console.log("App started on port 8866");
+// });
+https.createServer(credentials, app).listen(8866);
 
 /***************** 数据库操作 *****************/
 var mysql      = require('mysql');
