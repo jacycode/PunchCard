@@ -1,7 +1,8 @@
 //请求打卡数据
 function loadrefresh() {
-    var dataurl = "/query?username=" + $.cookie('username');
-    $.ajax(dataurl, {
+    $.ajax("/query", {
+        method:"post",
+        data: {username: $.cookie('username')},
         success: function (data, code, xhr) {
             if (code == 'success'){
                 if(data.code == 0){
@@ -27,8 +28,10 @@ loadrefresh();
 //打卡按钮 点击事件
 $("#punchBt").on('click', function () {
     //打卡
-    var url = "/punch?username=" + $.cookie('username') + "&punchtime=" + (new Date().getTime());
-    $.ajax(url, {
+    $.ajax("/punch", {
+        method:"post",
+        data: {"username": $.cookie('username'),
+               "punchtime": new Date().getTime()},
         success: function (data, code, xhr) {
             if (code == 'success'){
                 if(data.code == 0){

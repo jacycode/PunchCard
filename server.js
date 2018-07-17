@@ -2,7 +2,13 @@
 var express = require("express");
 var fs = require('fs');
 var https = require('https');
+var bodyParser = require('body-parser');
+
 var app = express();
+app.use(bodyParser.json({limit: '1mb'}));  //body-parser 解析json格式数据
+app.use(bodyParser.urlencoded({            //此项必须在 bodyParser.json 下面,为参数编码
+    extended: true
+}));
 
 var privateKey  = fs.readFileSync('../ssl/domain-key-0717.key', 'utf8');
 var certificate = fs.readFileSync('../ssl/domain-crt-0717.crt', 'utf8');
@@ -17,14 +23,14 @@ app.use(function(req, res, next) {
 });
 
 //登录
-app.get("/login", function(req, res) {
+app.post("/login", function(req, res) {
     query("select * from user;", function (err, res_msyql) {
        if (err){
            // throw err;
            res.json({code:1, msg:'请联系管理员!'});
        }else{
-           var name = req.query.username;
-           var password = req.query.password;
+           var name = req.body.username;
+           var password = req.body.password;
            var succ = res_msyql.some(function (obj) {
                if (obj.username == name && obj.password == password){
                     return true;
@@ -42,9 +48,9 @@ app.get("/login", function(req, res) {
     });
 });
 //注册
-app.get("/register", function(req, res) {
-    var name = req.query.username;
-    var password = req.query.password;
+app.post("/register", function(req, res) {
+    var name = req.body.username;
+    var password = req.body.password;
     query("insert into user(username, password) values('"+name+"','"+password+"')", function (err, res_mysql) {
         if (err){
             res.json({code:1, msg:'请联系管理员!'});
@@ -55,8 +61,8 @@ app.get("/register", function(req, res) {
     });
 });
 //数据查询
-app.get("/query", function(req, res) {
-    var name = req.query.username;
+app.post("/query", function(req, res) {
+    var name = req.body.username;
     query("select * from punch where username='"+name+"';", function (err, res_msyql) {
         if (err){
             // throw err;
@@ -67,9 +73,9 @@ app.get("/query", function(req, res) {
     });
 });
 //打卡
-app.get("/punch", function(req, res) {
-    var name = req.query.username;
-    var punchtime = req.query.punchtime;
+app.post("/punch", function(req, res) {
+    var name = req.body.username;
+    var punchtime = req.body.punchtime;
     var date = new Date(parseInt(punchtime));
     //content规范：2018.07.09 Mon 09:00~18:00
     query("select * from punch where username='"+name+"';", function (err, res_msyql) {

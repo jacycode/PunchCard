@@ -17,8 +17,10 @@ $('#okBt').on('click', function () {
     if(isLogin){
         //登录
         if($('#username').val()!="" && $("#password").val()!=""){
-            var url = "/login?username="+$('#username').val()+"&password="+$('#password').val();
-            $.ajax(url, {
+            $.ajax("/login", {
+                method:"post",
+                data: {"username": $('#username').val(),
+                       "password": $('#password').val()},
                 success: function (data, code, xhr) {
                     if (code == 'success'){
                         if(data.code == 0){
@@ -39,8 +41,10 @@ $('#okBt').on('click', function () {
     }else{
         //注册
         if($('#username').val()!="" && $("#password").val()!="" && $("#password").val()==$("#passwordAgain").val()){
-            var url = "/register?username="+$('#username').val()+"&password="+$('#password').val();
-            $.ajax(url,{
+            $.ajax("/register",{
+                method:"post",
+                data: {"username": $('#username').val(),
+                       "password": $('#password').val()},
                 success:function (data, code, xhr) {
                     console.log('success', code)
                     if (code == 'success'){
