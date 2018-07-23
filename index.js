@@ -1,5 +1,8 @@
 //请求打卡数据
 function loadrefresh() {
+    if($.cookie('username') == undefined){
+        location.href = "/login.html";
+    }
     $.ajax("/query", {
         method:"post",
         data: {username: $.cookie('username')},

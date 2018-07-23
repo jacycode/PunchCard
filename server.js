@@ -63,6 +63,11 @@ app.post("/register", function(req, res) {
 //数据查询
 app.post("/query", function(req, res) {
     var name = req.body.username;
+    // if (name == undefined){
+    //     console.log(name);
+    //     res.redirect(302, "/login.html");
+    //     return;
+    // }
     query("select * from punch where username='"+name+"';", function (err, res_msyql) {
         if (err){
             // throw err;
