@@ -30,6 +30,30 @@ loadrefresh();
 
 //打卡按钮 点击事件
 $("#punchBt").on('click', function () {
+    if(navigator.geolocation) {
+        console.log('获取位置');
+        navigator.geolocation.getCurrentPosition(
+            function (position) {
+                console.log('成功');
+                var longitude = position.coords.longitude;
+                var latitude = position.coords.latitude;
+                console.log(longitude)
+                console.log(latitude)
+            },
+            function (e) {
+                console.log('失败');
+                var msg = e.code;
+                var dd = e.message;
+                console.log(msg)
+                console.log(dd)
+            },
+            {
+                enableHighAccuracy: true,
+                timeout: 5000,
+                maximumAge: 0
+            }
+        )
+    }
     //打卡
     $.ajax("/punch", {
         method:"post",
