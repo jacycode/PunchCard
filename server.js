@@ -125,7 +125,12 @@ app.post("/punch", function(req, res) {
                 }
             });
             if(saveID != ""){
-                query("update punch set content = '"+content+"' where id = "+saveID+";", function (err_sub, res_mysql_sub) {
+                //计算加班时长
+                var overtime = 0;
+                var start = content.split("~")[0].split(" ")[0] + " " + content.split("~")[0].split(" ")[2];
+                var end = content.split("~")[0].split(" ")[0] + " " + content.split("~")[1];
+                overtime = Math.max((((new Date(start).getTime()) - (new Date(end).getTime()) - 9*60*60*1000)/(1000*60*60.0)).toFixed(1), 0);
+                query("update punch set content = '"+content+"', overtime = "+overtime+" where id = "+saveID+";", function (err_sub, res_mysql_sub) {
                     if (err_sub){
                         // throw err;
                         res.json({code:1, msg:'请联系管理员!'});
@@ -134,7 +139,7 @@ app.post("/punch", function(req, res) {
                     }
                 });
             }else {
-                query("insert into punch(username, content) values('"+name+"','"+content+"');", function (err_sub, res_mysql_sub) {
+                query("insert into punch(username, content, overtime) values('"+name+"','"+content+"', 0);", function (err_sub, res_mysql_sub) {
                     if (err_sub){
                         // throw err;
                         res.json({code:1, msg:'请联系管理员!'});

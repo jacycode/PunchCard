@@ -10,7 +10,7 @@ function loadrefresh() {
             if (code == 'success'){
                 if(data.code == 0){
                     var eles = data.data.map(function (obj, ind) {
-                        return "<li>"+obj.content+"</li>";
+                        return "<li>"+obj.content+" "+obj.overtime+"h"+"</li>";
                     });
                     $('#recorder ul').html(eles);
                 }else{
