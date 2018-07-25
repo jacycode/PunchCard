@@ -129,7 +129,8 @@ app.post("/punch", function(req, res) {
                 var overtime = 0;
                 var start = content.split("~")[0].split(" ")[0] + " " + content.split("~")[0].split(" ")[2];
                 var end = content.split("~")[0].split(" ")[0] + " " + content.split("~")[1];
-                overtime = Math.max((((new Date(start).getTime()) - (new Date(end).getTime()) - 9*60*60*1000)/(1000*60*60.0)).toFixed(1), 0);
+                console.log((((new Date(end).getTime()) - (new Date(start).getTime()) - 9*60*60*1000)/(1000*60*60.0)));
+                overtime = Math.max((((new Date(end).getTime()) - (new Date(start).getTime()) - 9*60*60*1000)/(1000*60*60.0)).toFixed(1), 0);
                 query("update punch set content = '"+content+"', overtime = "+overtime+" where id = "+saveID+";", function (err_sub, res_mysql_sub) {
                     if (err_sub){
                         // throw err;
@@ -139,6 +140,7 @@ app.post("/punch", function(req, res) {
                     }
                 });
             }else {
+                console.log("insert into punch(username, content, overtime) values('"+name+"','"+content+"', 0);");
                 query("insert into punch(username, content, overtime) values('"+name+"','"+content+"', 0);", function (err_sub, res_mysql_sub) {
                     if (err_sub){
                         // throw err;
