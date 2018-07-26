@@ -92,9 +92,9 @@ loadrefresh();
 
 //打卡按钮 点击事件
 $("#punchBt").on('click', function () {
-    if(longtitude == undefined || latitude == undefined){
-        alert('locate...');
-    }else if(latitude > 39.946 && latitude < 39.947 && longtitude > 116.292 && longtitude < 116.293){
+    // if(longtitude == undefined || latitude == undefined){
+    //     alert('locate...');
+    // }else if(latitude > 39.946 && latitude < 39.947 && longtitude > 116.292 && longtitude < 116.293){
         //打卡
         $.ajax("/punch", {
             method:"post",
@@ -116,8 +116,8 @@ $("#punchBt").on('click', function () {
             },
             dataType:"json"
         });
-    }else{
-        alert("invalid area");
-    }
+    // }else{
+    //     alert("invalid area");
+    // }
 
 });
