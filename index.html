@@ -5,8 +5,13 @@
 		<title>打卡</title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link rel="stylesheet" href="./index.css">
+		<link rel="stylesheet" type="text/css" href="lib/daterangepicker.css"/>
 	</head>
-	<body>	
+	<body>
+		<div class="form-group daterange">
+		    <input class="form-control" name="range_date" type="text">
+		</div>
+
 		<div id="recorder">
 			<ul>
 
@@ -23,7 +28,10 @@
 		<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 		<!--<script src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.js"></script>-->
 		<script src="./lib/jquerycookie.js"></script>
+		<script type="text/javascript" src="lib/moment.min.js"></script>
+		<script type="text/javascript" src="lib/daterangepicker.js"></script>
 		<script src="index.js"></script>
-
+		
+		
 	</body>
 </html>
