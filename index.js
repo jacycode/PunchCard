@@ -62,9 +62,9 @@ amap.plugin('AMap.Geolocation', function() {
 
 //请求打卡数据
 function loadrefresh() {
-    if($.cookie('username') == undefined){
-        location.href = "/login.html";
-    }
+//  if($.cookie('username') == undefined){
+//      location.href = "/login.html";
+//  }
     $.ajax("/query", {
         method:"post",
         data: {username: $.cookie('username')},
@@ -120,4 +120,57 @@ $("#punchBt").on('click', function () {
     //     alert("invalid area");
     // }
 
+});
+
+
+//日期选择
+$(".daterange input").each(function() {
+    var $this = $(this);
+
+    $this.daterangepicker({
+        locale : {
+            "format" : "YYYY-MM-DD",// 显示格式
+            "separator" : " / ",// 两个日期之间的分割线
+            // 中文化
+            "applyLabel" : "确定",
+            "cancelLabel" : "取消",
+            "fromLabel" : "开始",
+            "toLabel" : "结束",
+            "daysOfWeek" : [ "日", "一", "二", "三", "四", "五", "六" ],
+            "monthNames" : [ "一月", "二月", "三月", "四月", "五月", "六", "七月", "八月", "九月", "十月", "十一月", "十二月" ],
+            "firstDay" : 1
+        },
+    }, function(start, end, label) {
+//  	日期筛选
+    	var arr = $('.drp-selected').html().split(' / '); //获取时间
+	    	a = new Date(arr[0]).getTime() - 86400000;
+			a = moment(a).format('YYYY-MM-DD')
+			b = new Date(arr[1]).getTime() + 86400000;
+			b = moment(b).format('YYYY-MM-DD')
+		
+    	$('#recorder ul').find('li').each(function() {
+    		$(this).hide()
+            var att = $(this).html().split(' ')
+            if(moment(att[0]).isBetween(a,b)){
+            	$(this).show()
+            }
+        })
+    	
+    	
+        // 点击确定后的事件，下面是为了bootstrap validate得校验，
+        // 若未使用，可忽视
+        if ($this.parents("form.required-validate").length > 0) {
+            var $form = $this.parents("form.required-validate");
+			
+			
+            var name = $this.attr("name");
+            if ($form.length > 0) {
+            	alert(11)
+                var data = $form.data('bootstrapValidator');
+                data.updateStatus(name, 'NOT_VALIDATED', null)
+                // Validate the field
+                .validateField(name);
+            }
+        }
+    });
 });

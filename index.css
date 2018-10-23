@@ -59,6 +59,42 @@
 
 
 /* 容器布局 */
+
+/*#header{
+	position: absolute;
+    top: 5%;
+    right: 5%;
+    height: 10%;
+    width: 90%;
+}
+#header input:nth-of-type(1){
+	height: 50%;
+	float: left;
+}
+#header input:nth-of-type(2){
+	height: 50%;
+	float: right;
+}*/
+
+.daterange{
+    position: absolute;
+    top: 5%;
+    right: 0%;
+    height: 10%;
+    width: 100%;
+}
+.daterange input{
+	width: 70%;
+	height: 50%;
+	margin: 3% 15%;
+		
+	border: #EC971F solid 1px;
+	font-size: 14px;
+	border-radius: 5px;
+	text-align: center;
+}
+
+
 #recorder{
     position: absolute;
     top: 15%;
